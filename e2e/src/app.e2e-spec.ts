@@ -1,5 +1,5 @@
 import { AppPage } from './app.po';
-import { browser, logging } from 'protractor';
+import { element, by } from 'protractor';
 
 describe('workspace-project App', () => {
   let page: AppPage;
@@ -10,14 +10,22 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('ezs-testbed app is running!');
+    expect(page.getParagraphText()).toEqual('Welcome to app!');
   });
 
-  afterEach(async () => {
-    // Assert that there are no errors emitted from the browser
-    const logs = await browser.manage().logs().get(logging.Type.BROWSER);
-    expect(logs).not.toContain(jasmine.objectContaining({
-      level: logging.Level.SEVERE,
-    } as logging.Entry));
+
+  it('should set max button and click first looped div', () => {
+    page.navigateTo();
+    let dots = element.all(by.css('div.filled'));
+    expect(dots.count()).toEqual(2);
+    const ratingBtn = element(by.id('ratingBtn'));
+    ratingBtn.click();
+    dots = element.all(by.css('div.filled'));
+    expect(dots.count()).toEqual(10);
+    const firstDot = element(by.css('div.index0'));
+    firstDot.click();
+    dots = element.all(by.css('div.filled'));
+    expect(dots.count()).toEqual(2);
   });
+
 });
