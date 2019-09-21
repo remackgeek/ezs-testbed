@@ -32,14 +32,17 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      # build app
-      - run: npm run build:app
+      # run app lint
+      - run: npm run lint
 
       # run app tests
-      - run: npm run test:app
+      - run: npm run test
       
+      # build app
+      - run: npm run build
+
       # run e2e tests!
-      - run: npm run test:e2e
+      - run: npm run e2e
 
 workflows:
   version: 2
